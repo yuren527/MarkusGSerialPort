@@ -1,15 +1,15 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "SerialPort.h"
+#include "MarkusGSerialPort.h"
 
-#define LOCTEXT_NAMESPACE "FSerialPortModule"
+#define LOCTEXT_NAMESPACE "FMarkusGSerialPortModule"
 
-void FSerialPortModule::StartupModule()
+void FMarkusGSerialPortModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
 }
 
-void FSerialPortModule::ShutdownModule()
+void FMarkusGSerialPortModule::ShutdownModule()
 {
 	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
 	// we call this function before unloading the module.
@@ -17,4 +17,4 @@ void FSerialPortModule::ShutdownModule()
 
 #undef LOCTEXT_NAMESPACE
 	
-IMPLEMENT_MODULE(FSerialPortModule, SerialPort)
+IMPLEMENT_MODULE(FMarkusGSerialPortModule, MarkusGSerialPort)

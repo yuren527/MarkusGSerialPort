@@ -8,7 +8,7 @@
 /**
  * 
  */
-class SERIALPORTEDITOR_API FSerialPortDetails : public IDetailCustomization
+class FSerialPortDetails : public IDetailCustomization
 {
 public:
 public:

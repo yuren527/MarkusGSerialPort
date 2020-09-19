@@ -13,13 +13,13 @@
 #include "SerialPort_UE.h"
 #include "SerialPortDetails.h"
 
-#define LOCTEXT_NAMESPACE "FSerialPortEditorModule"
+#define LOCTEXT_NAMESPACE "FMarkusGSerialPortEditorModule"
 
 
 /**
  * Implements the TextAssetEditor module.
  */
-class FSerialPortEditorModule
+class FMarkusGSerialPortEditorModule
 	: public IModuleInterface
 {
 
@@ -90,7 +90,7 @@ private:
 };
 
 
-IMPLEMENT_MODULE(FSerialPortEditorModule, SerialPortEditor);
+IMPLEMENT_MODULE(FMarkusGSerialPortEditorModule, MarkusGSerialPortEditor);
 
 
 #undef LOCTEXT_NAMESPACE

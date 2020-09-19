@@ -14,7 +14,7 @@
 
 using namespace std;
 
-class SERIALPORT_API SerialPort {
+class MARKUSGSERIALPORT_API SerialPort {
 
 private:
 	/** ´®¿Ú¾ä±ú */

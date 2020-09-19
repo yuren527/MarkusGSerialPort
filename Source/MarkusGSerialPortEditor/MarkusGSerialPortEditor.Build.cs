@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class SerialPortEditor : ModuleRules
+public class MarkusGSerialPortEditor : ModuleRules
 {
-	public SerialPortEditor(ReadOnlyTargetRules Target) : base(Target)
+	public MarkusGSerialPortEditor(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 
@@ -50,7 +50,7 @@ public class SerialPortEditor : ModuleRules
 				"Slate",
 				"SlateCore",
 				"UnrealEd",
-				"SerialPort",
+				"MarkusGSerialPort",
 				"AssetTools",
 				// ... add private dependencies that you statically link with here ...	
 			}

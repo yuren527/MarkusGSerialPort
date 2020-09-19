@@ -32,7 +32,7 @@ enum ECommEvents_UE {
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FListenThreadSignature, const FString&, data);
 
 UCLASS(BlueprintType)
-class SERIALPORT_API USerialPort_UE : public UObject
+class MARKUSGSERIALPORT_API USerialPort_UE : public UObject
 {
 	GENERATED_BODY()
 private:

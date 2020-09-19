@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Modules/ModuleManager.h"
 
-class FSerialPortModule : public IModuleInterface
+class FMarkusGSerialPortModule : public IModuleInterface
 {
 public:
 
