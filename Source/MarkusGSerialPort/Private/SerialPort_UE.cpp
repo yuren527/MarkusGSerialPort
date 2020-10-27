@@ -44,12 +44,40 @@ bool USerialPort_UE::WriteDataString(FString data)
 	if (!SerialPort_internal) {
 		return false;
 	}
-
+	
 	string dataString = TCHAR_TO_UTF8(*data);
 	const char* char_array = dataString.c_str();
 	TArray<uint8> hexArray;
 	for (int i = 0; i < dataString.length(); i++) {
 		hexArray.Add(char_array[i]);
+	}
+	return WriteData(hexArray);
+}
+
+const string hexString = "0123456789ABCDEF";
+
+bool USerialPort_UE::WriteDataHex(FString data)
+{
+	if (!SerialPort_internal) {
+		return false;
+	}
+	
+	string dataString = TCHAR_TO_UTF8(*data);
+	if (dataString.length() % 2 != 0) {
+		UE_LOG(LogTemp,Warning, TEXT("Wrong hex data!"));
+		return false;
+	}
+
+	TArray<uint8> hexArray;
+	for (int i = 0; i < dataString.length(); i += 2) {
+		size_t a = hexString.find(toupper(dataString[i]), 0);
+		size_t b = hexString.find(toupper(dataString[i + 1]), 0);
+		if (a == string::npos || b == string::npos) {
+			UE_LOG(LogTemp,Warning, TEXT("Wrong hex data!"));
+			return false;
+		}
+
+		hexArray.Add(a * 16 + b);
 	}
 	return WriteData(hexArray);
 }
@@ -114,6 +142,45 @@ bool USerialPort_UE::IsListenThreadOpened() const
 	return SerialPort_internal && SerialPort_internal->IsListenThreadOpened();
 }
 
+FString USerialPort_UE::HexToString(const FString& hex) const
+{
+	return HexToStr(hex);
+}
 
+FString HexToStr(const FString& hex)
+{
+	string dataString = TCHAR_TO_UTF8(*hex);
+	
+	int index = 0;
+    if( !dataString.empty())
+    {
+        while( (index = dataString.find(' ',index)) != string::npos)
+        {
+            dataString.erase(index,1);
+        }
+    }
 
+	if (dataString.length() % 2 != 0) {
+		UE_LOG(LogTemp,Warning, TEXT("Wrong hex data!"));
+		return FString();
+	}
 
+	TArray<uint8> hexArray;
+	for (int i = 0; i < dataString.length(); i += 2) {
+		size_t a = hexString.find(toupper(dataString[i]), 0);
+		size_t b = hexString.find(toupper(dataString[i + 1]), 0);
+		if (a == string::npos || b == string::npos) {
+			UE_LOG(LogTemp,Warning, TEXT("Wrong hex data!"));
+			return FString();
+		}
+
+		hexArray.Add(a * 16 + b);
+	}
+	
+	std::stringstream s;
+	for(auto i : hexArray){
+		s << std::hex << i;
+	}
+
+	return FString(s.str().c_str());
+}

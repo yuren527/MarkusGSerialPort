@@ -31,6 +31,8 @@ enum ECommEvents_UE {
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FListenThreadSignature, const FString&, data);
 
+FString MARKUSGSERIALPORT_API HexToStr(const FString& hex);
+
 UCLASS(BlueprintType)
 class MARKUSGSERIALPORT_API USerialPort_UE : public UObject
 {
@@ -68,6 +70,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "SerialPort")
 		bool WriteDataString(FString data);
 	UFUNCTION(BlueprintCallable, Category = "SerialPort")
+		bool WriteDataHex(FString data);
+	UFUNCTION(BlueprintCallable, Category = "SerialPort")
 		bool WriteData(TArray<uint8> data);
 	UFUNCTION(BlueprintCallable, Category = "SerialPort")
 		bool OpenListenThread(int sleepTimeInterval);
@@ -82,4 +86,7 @@ public:
 		bool IsInitialized() const;
 	UFUNCTION(BlueprintCallable, Category = "SerialPort", BlueprintPure)
 		bool IsListenThreadOpened() const;
+
+	UFUNCTION(BlueprintCallable, Category = "SerialPort", BlueprintPure)
+		FString HexToString(const FString& hex) const;
 };

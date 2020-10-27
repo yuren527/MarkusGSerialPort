@@ -17,6 +17,7 @@ public:
 
     /** IDetailCustomization interface */
     virtual void CustomizeDetails(IDetailLayoutBuilder& DetailLayout) override;
+    virtual ~FSerialPortDetails() override;
 
 protected:
     FReply OnInitButtonClicked(TWeakObjectPtr<class USerialPort_UE> obj);
@@ -25,13 +26,17 @@ protected:
     FReply OnCloseListenThreadClicked(TWeakObjectPtr<class USerialPort_UE> obj);
 
     FReply OnSendDataClicked(TWeakObjectPtr<class USerialPort_UE> obj);
-    FReply OnClearSendDataClicked(TWeakObjectPtr<class USerialPort_UE> obj);
-    FReply OnClearRecvDataClicked(TWeakObjectPtr<class USerialPort_UE> obj);
+    FReply OnClearSendDataClicked();
+    FReply OnClearRecvDataClicked();
+
+    void OnSendHexChanged(ECheckBoxState newState);
+    void OnRecvHexChanged(ECheckBoxState newState);
 
     TSharedPtr<class SMultiLineEditableTextBox> TextToSend;
 
-    //Object to store the data recieved from serial port
-    class UReceivedDataObject* ReceivedDataObj;
+    TWeakObjectPtr<class UPortDataObject> ReceivedDataObj;
+
+    bool bSendHex;
 };
 
 

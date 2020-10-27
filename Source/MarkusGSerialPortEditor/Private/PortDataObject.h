@@ -5,13 +5,14 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "SerialPort_UE.h"
-#include "ReceivedDataObject.generated.h"
+#include <sstream>
+#include "PortDataObject.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class UReceivedDataObject : public UObject
+class UPortDataObject : public UObject
 {
 	GENERATED_BODY()
 public:
@@ -19,14 +20,16 @@ public:
 		return DataRecv;
 	}
 
+	bool bToString = false;
+
 	void BindToListenThreadDelegate(FListenThreadSignature& inDelegate) {
 		ListenThreadDelegate = &inDelegate;
-		ListenThreadDelegate->AddDynamic(this, &UReceivedDataObject::RefreshRecvText);
+		ListenThreadDelegate->AddDynamic(this, &UPortDataObject::RefreshRecvText);
 	}
 
 	virtual void BeginDestroy() override {
 		if(ListenThreadDelegate && ListenThreadDelegate->Contains(this, FName("RefreshRecvText"))){
-			ListenThreadDelegate->RemoveDynamic(this, &UReceivedDataObject::RefreshRecvText);
+			ListenThreadDelegate->RemoveDynamic(this, &UPortDataObject::RefreshRecvText);
 		}
 		Super::BeginDestroy();
 	}
@@ -40,8 +43,11 @@ private:
 
 	UFUNCTION()
 		void RefreshRecvText(const FString& stringData) {
-		DataRecv += stringData;
-	}
+		if(!bToString)
+			DataRecv += stringData;
+		else 
+			DataRecv += HexToStr(stringData);
+		}
 
 	class FListenThreadSignature* ListenThreadDelegate = nullptr;
 };
