@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "SerialPort_UE.h"
-#include <sstream>
 #include "PortDataObject.generated.h"
 
 /**
